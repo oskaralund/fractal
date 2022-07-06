@@ -10,7 +10,7 @@ Fractal::Fractal() {
   CreateWindow();
   CreateFractalRect();
   shader_ = std::make_unique<Shader>(
-      "../shaders/default.vert", "../shaders/default.frag");
+      "shaders/default.vert", "shaders/default.frag");
   shader_->SetUniform("fractal_center", {0.0, 0.0});
   shader_->SetUniform("fractal_width", 2.0*aspect_ratio());
   shader_->SetUniform("fractal_height", 2.0);
