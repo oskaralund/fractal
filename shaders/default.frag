@@ -27,7 +27,6 @@ void main() {
   dvec2 z = dvec2(0.0, 0.0);
 
   int iter = 0;
-  //float max_iter = 10;
 
   while (iter < max_iter && length(z) < 2) {
     z = square(z) + c;
