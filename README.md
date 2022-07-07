@@ -1,5 +1,5 @@
 # Fractal
-An OpenGL based fractal viewer.
+An OpenGL based fractal viewer. Uses double precision to allow for extensive zooming. Requires OpenGL 4.0 or greater.
 
 ![](demo.gif)
 
