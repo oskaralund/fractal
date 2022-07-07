@@ -54,6 +54,13 @@ void Fractal::Render() {
   shader_->SetUniform(
       "fractal_center", fractal_center() + dt*scroll_momentum_);
 
+  // Adjust max iterations
+  if (automatic_max_iter_) {
+    const int max_iter = glm::clamp(
+        -15*glm::log(0.1*fractal_width()), 10.0, 500.0);
+    shader_->SetUniform("max_iter", max_iter);
+  }
+
   // Draw
   glBindVertexArray(fractal_vao_);
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -329,6 +336,9 @@ void Fractal::KeyCallback(int key, int scancode, int action, int mods) {
         break;
       case GLFW_KEY_Z:
         zoom_key_held_ = true;
+        break;
+      case GLFW_KEY_A:
+        automatic_max_iter_ = !automatic_max_iter_;
         break;
       case GLFW_KEY_K:
         if (max_iter() > 10) {

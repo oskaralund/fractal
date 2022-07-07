@@ -49,6 +49,7 @@ class Fractal {
   glm::dvec2 scroll_momentum_{0.0, 0.0};
   bool mouse_pressed_ = false;
   bool zoom_key_held_ = false;
+  bool automatic_max_iter_ = false;
   double time_;
   glm::dvec2 cursor_world_pos_;
   glm::dvec2 cursor_pixel_pos_;
