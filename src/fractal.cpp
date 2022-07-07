@@ -313,10 +313,10 @@ void Fractal::KeyCallback(int key, int scancode, int action, int mods) {
         scroll_momentum_ = {0, 0};
         zoom_momentum_ = 0;
         break;
-      case GLFW_KEY_A:
+      case GLFW_KEY_J:
         shader_->SetUniform("max_iter", max_iter()+10);
         break;
-      case GLFW_KEY_B:
+      case GLFW_KEY_K:
         if (max_iter() > 10) {
           shader_->SetUniform("max_iter", max_iter()-10);
         }
