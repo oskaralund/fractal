@@ -77,7 +77,7 @@ void Fractal::CreateWindow() {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-  window_ = glfwCreateWindow(300, 300, "fractal", NULL, NULL);
+  window_ = glfwCreateWindow(600, 600, "fractal", NULL, NULL);
   if (window_ == NULL)
   {
     std::cout << "Failed to create GLFW window" << std::endl;
@@ -95,7 +95,7 @@ void Fractal::CreateWindow() {
   }
 
 
-  glViewport(0, 0, 300, 300);
+  glViewport(0, 0, 600, 600);
 
   glfwSetWindowUserPointer(window_, this);
   glfwSetCursorPosCallback(window_, &cursor_pos_callback);
@@ -179,7 +179,7 @@ void Fractal::LoadShaders() {
     shaders_[name]->SetUniform("fractal_center", {0.0, 0.0});
     shaders_[name]->SetUniform("fractal_width", 2.0*aspect_ratio());
     shaders_[name]->SetUniform("fractal_height", 2.0);
-    shaders_[name]->SetUniform("max_iter", 500);
+    shaders_[name]->SetUniform("max_iter", 50);
     shaders_[name]->SetUniform("pal0", 0);
     shaders_[name]->SetUniform("pal1", 1);
   }
