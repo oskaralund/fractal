@@ -80,18 +80,15 @@ void Shader::Use() const {
 
 
 void Shader::SetUniform(std::string name, double v) const {
-  Use();
   glUniform1d(glGetUniformLocation(id, name.c_str()), v); 
 }
 
 
 void Shader::SetUniform(std::string name, glm::dvec2 v) const {
-  Use();
   glUniform2d(glGetUniformLocation(id, name.c_str()), v.x, v.y); 
 }
 
 
 void Shader::SetUniform(std::string name, int v) const {
-  Use();
   glUniform1i(glGetUniformLocation(id, name.c_str()), v); 
 }
