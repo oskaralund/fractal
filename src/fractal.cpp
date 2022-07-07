@@ -38,6 +38,17 @@ void Fractal::Render() {
       "fractal_center",
       fractal_center() + zoom_momentum_*dt*dir);
 
+  if (zoom_key_held_) {
+    shader_->SetUniform(
+        "fractal_height",
+        fractal_height()*glm::exp(-dt));
+    shader_->SetUniform("fractal_width", fractal_height()*aspect_ratio());
+    const auto dir = PixelToWorld(cursor_pos()) - fractal_center();
+    shader_->SetUniform(
+        "fractal_center",
+        fractal_center() + dt*dir);
+  }
+
   // Scroll
   scroll_momentum_ *= glm::exp(-5*dt);
   shader_->SetUniform(
@@ -66,7 +77,7 @@ void Fractal::CreateWindow() {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-  window_ = glfwCreateWindow(600, 600, "fractal", NULL, NULL);
+  window_ = glfwCreateWindow(300, 300, "fractal", NULL, NULL);
   if (window_ == NULL)
   {
     std::cout << "Failed to create GLFW window" << std::endl;
@@ -84,7 +95,7 @@ void Fractal::CreateWindow() {
   }
 
 
-  glViewport(0, 0, 600, 600);
+  glViewport(0, 0, 300, 300);
 
   glfwSetWindowUserPointer(window_, this);
   glfwSetCursorPosCallback(window_, &cursor_pos_callback);
@@ -168,7 +179,7 @@ void Fractal::LoadShaders() {
     shaders_[name]->SetUniform("fractal_center", {0.0, 0.0});
     shaders_[name]->SetUniform("fractal_width", 2.0*aspect_ratio());
     shaders_[name]->SetUniform("fractal_height", 2.0);
-    shaders_[name]->SetUniform("max_iter", 50);
+    shaders_[name]->SetUniform("max_iter", 500);
     shaders_[name]->SetUniform("pal0", 0);
     shaders_[name]->SetUniform("pal1", 1);
   }
@@ -316,10 +327,20 @@ void Fractal::KeyCallback(int key, int scancode, int action, int mods) {
       case GLFW_KEY_J:
         shader_->SetUniform("max_iter", max_iter()+10);
         break;
+      case GLFW_KEY_Z:
+        zoom_key_held_ = true;
+        break;
       case GLFW_KEY_K:
         if (max_iter() > 10) {
           shader_->SetUniform("max_iter", max_iter()-10);
         }
+        break;
+    }
+  }
+  if (action == GLFW_RELEASE) {
+    switch (key) {
+      case GLFW_KEY_Z:
+        zoom_key_held_ = false;
         break;
     }
   }
